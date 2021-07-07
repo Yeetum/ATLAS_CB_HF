@@ -85,6 +85,7 @@ def on_close(ws):
 
 #Coinbase Pro websocket feed
 if __name__ == "__main__":
+    print("ATLAS HF CB PRO Starting...")
     socket = 'wss://ws-feed.pro.coinbase.com'
     ws = websocket.WebSocketApp(socket, on_open=on_open, on_message=on_message, on_close=on_close)
     #Output will be timestamped data
