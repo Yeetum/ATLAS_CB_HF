@@ -1,6 +1,7 @@
 import websocket, json
 import dateutil.parser
 from dateutil.parser import parse
+import parstream
 
 import websocket, json
 import dateutil.parser
@@ -46,15 +47,15 @@ def on_message(ws, message):
   #Formatting datetime
   tick_dt = tick_datetime_object.strftime("%m/%d/%Y %H:%M")
   #Printing just the minute number
-  print(tick_datetime_object.minute)
+  #print(tick_datetime_object.minute)
   #print(tick_dt)
 
-  #Detecting if there is a new minute 
+  # Detecting if there is a new minute 
   if not tick_dt in minutes_processed:
     #print("starting new candlestick")
     minutes_processed[tick_dt] = True
     #print(minutes_processed)
-    #Initializing first candlestick by adding first candlestick to dictionary to keep track of whether the candlestick is unique and adding cancdlestick to candlestick list []
+    # Initializing first candlestick by adding first candlestick to dictionary to keep track of whether the candlestick is unique and adding cancdlestick to candlestick list []
     
     if len(minute_candlesticks) > 0:
       minute_candlesticks[-1]['close'] = previous_tick['price']
@@ -89,4 +90,8 @@ if __name__ == "__main__":
     socket = 'wss://ws-feed.pro.coinbase.com'
     ws = websocket.WebSocketApp(socket, on_open=on_open, on_message=on_message, on_close=on_close)
     #Output will be timestamped data
-    ws.run_forever()
+    #stream_object = parse_stream()
+    #ws.run_forever()
+    while(True):
+      parstream(ws.run_forever())
+
